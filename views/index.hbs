@@ -1,2 +1,15 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <h1>{{title}}</h1>
+    <ul>
+      {{#each celebrities}}
+      <li><a href="/celebrities/{{this._id}}">{{this.name}}</a></li>
+      {{/each}}
+    </ul>
+    <a href="/celebrities/create">Create a new celebrity</a>
+  </body>
+</html>

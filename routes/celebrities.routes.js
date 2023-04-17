@@ -33,15 +33,15 @@ router.get('/', (req, res, next) => {
 
 // GET /celebrities/:id - show a specific celebrity
 router.get('/:id', (req, res, next) => {
-  const { id } = req.params;
-  Celebrity.findById(id)
-    .then((celebrity) => {
-      res.render('celebrities/show', { celebrity });
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
+    const { id } = req.params;
+    Celebrity.findById(id)
+      .then((celebrity) => {
+        res.render('celebrities/show', { celebrity });
+      })
+      .catch((error) => {
+        next(error);
+      });
+  });
 
 // PUT /celebrities/:id - update a celebrity
 router.put('/:id', (req, res, next) => {

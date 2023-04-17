@@ -30,17 +30,59 @@ router.get('/', (req, res, next) => {
       });
   });
   
-  // GET /movies/:id - show a specific movie
-  router.get('/:id', (req, res, next) => {
+// GET /movies/:id - show details of a specific movie
+router.get('/:id', (req, res, next) => {
     const { id } = req.params;
-    Movie.findById(id)
-      .populate('cast')
+    Movie.findById(id).populate('cast')
       .then((movie) => {
-        res.render('movies/show', { movie });
+        res.render('movies/movie-details', { movie });
       })
       .catch((error) => {
         next(error);
       });
   });
-  
+
+  // POST /movies/:id/delete - delete a specific movie
+router.post('/:id/delete', (req, res, next) => {
+  const { id } = req.params;
+  Movie.findByIdAndDelete(id)
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+// GET /movies/:id/edit - show a form to edit a specific movie
+router.get('/:id/edit', (req, res, next) => {
+    const { id } = req.params;
+    Movie.findById(id)
+      .then((movie) => {
+        Celebrity.find()
+          .then((celebrities) => {
+            res.render('movies/edit-movie', { movie, celebrities });
+          })
+          .catch((error) => {
+            next(error);
+          });
+      })
+      .catch((error) => {
+        next(error);
+      });
+  });
+
+  // POST /movies/:id/edit - update a specific movie
+router.post('/:id/edit', (req, res, next) => {
+    const { id } = req.params;
+    const { title, genre, plot, cast } = req.body;
+    Movie.findByIdAndUpdate(id, { title, genre, plot, cast })
+      .then(() => {
+        res.redirect(`/movies/${id}`);
+      })
+      .catch((error) => {
+        next(error);
+      });
+  });
+
   module.exports = router;

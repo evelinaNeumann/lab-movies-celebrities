@@ -22,15 +22,26 @@ router.post('/create', (req, res, next) => {
 
 // GET /celebrities - show all celebrities
 router.get('/', (req, res, next) => {
-  Celebrity.find()
-    .then((celebrities) => {
-      res.render('celebrities/index', { celebrities });
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
+    Celebrity.find()
+      .then((celebrities) => {
+        res.render('celebrities/index', { celebrities });
+      })
+      .catch((error) => {
+        next(error);
+      });
+  });
 
+  // POST /celebrities/:id/delete - delete a specific celebrity
+router.post('/:id/delete', (req, res, next) => {
+    const { id } = req.params;
+    Celebrity.findByIdAndDelete(id)
+      .then(() => {
+        res.redirect('/celebrities');
+      })
+      .catch((error) => {
+        next(error);
+      });
+  });
 // GET /celebrities/:id - show a specific celebrity
 router.get('/:id', (req, res, next) => {
     const { id } = req.params;

@@ -12,5 +12,12 @@
     </ul>
     <a href="/celebrities/create">Create a new celebrity</a>
     <a href="/celebrities">View All Celebrities</a>
+    <ul>
+      {{#each movies}}
+      <li><a href="/movies/{{this._id}}">{{this.title}}</a></li>
+      {{/each}}
+    </ul>
+    <a href="/movies/create">Create a new Movie</a>
+    <a href="/movies">View All Movies</a>
   </body>
 </html>

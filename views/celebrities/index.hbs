@@ -6,6 +6,10 @@
       <h2>{{this.name}}</h2>
       <p>Occupation: {{this.occupation}}</p>
       <p>Catchphrase: {{this.catchPhrase}}</p>
+      <form action="/celebrities/{{this._id}}/delete" method="POST">
+    <button type="submit">Delete Celebrity</button>
+  </form>
     </li>
   {{/each}}
 </ul>
+<a href="/">Go Home</a>
